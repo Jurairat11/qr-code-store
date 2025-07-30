@@ -42,7 +42,9 @@ class UploadPartNo extends Page implements HasForms
 
             FileUpload::make('file')
                 ->label('Excel File')
+                ->disk('local')
                 ->directory('imports')
+                ->preserveFilenames()
                 ->live()
                 ->required(),
             ])
