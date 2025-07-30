@@ -18,31 +18,28 @@ class PartImport implements ToModel, WithHeadingRow
 
     }
 
-    public function model(array $row ) {
+    public function model(array $row)
+    {
+        $exists = Part::where('store_id', $this->storeId)
+            ->where('part_no', $row['part_no'])
+            ->exists();
 
-        $exists = Part::where('store_id',$this->storeId)
-        ->where('part_no', $row['part_no'])
-        ->exists();
+        if ($exists) {
+            Notification::make()
+                ->title("Part No. '{$row['part_no']}' already exists in this store.")
+                ->danger()
+                ->send();
 
-        Notification::make()
-            ->title("Part No. '{$row['part_no']}' already exists in this store.")
-            ->danger()
-            ->send();
-
-        if($exists) {
             throw ValidationException::withMessages([
                 'part_no' => "Part No. '{$row['part_no']}' already exists in this store.",
-
             ]);
-
         }
 
         return new Part([
             'store_id' => $this->storeId,
-            'part_no' => $row['part_no']
-
+            'part_no' => $row['part_no'],
         ]);
-
     }
+
 
 }
