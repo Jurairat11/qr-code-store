@@ -1,12 +1,15 @@
 <x-filament-panels::page>
     <form wire:submit.prevent="submit">
-
         <div class="mb-4">
-        {{ $this->form }}
+            {{ $this->form }}
         </div>
 
         <x-filament::button type="submit" class="mt-4">
             Upload
         </x-filament::button>
     </form>
+
+    <!-- ใส่สคริปต์และสไตล์ที่จำเป็น -->
+    <x-filament-panels::scripts />
+    <x-filament-panels::styles />
 </x-filament-panels::page>
