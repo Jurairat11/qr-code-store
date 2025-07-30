@@ -44,6 +44,7 @@ class UploadPartNo extends Page implements HasForms
                 ->label('Excel File')
                 ->disk('local')
                 ->directory('imports')
+                ->live()
                 ->required(),
             ])
 
