@@ -49,15 +49,14 @@ class UploadPartNo extends Page implements HasForms
 
         ];
     }
-
     public function submit()
     {
         $data = $this->form->getState();
 
         $storeId = $data['store_id'];
-        $file = $data['file'];
+        $filePath = storage_path('app/' . $data['file']); // แปลง path ให้ Laravel Excel ใช้ได้
 
-        Excel::import(new PartImport($storeId),$file);
+        Excel::import(new PartImport($storeId), $filePath);
 
         Notification::make()
             ->title('Data imported successfully')
@@ -66,3 +65,21 @@ class UploadPartNo extends Page implements HasForms
     }
 
 }
+
+
+
+// public function submit()
+    // {
+    //     $data = $this->form->getState();
+
+    //     $storeId = $data['store_id'];
+    //     $file = $data['file'];
+
+    //     Excel::import(new PartImport($storeId),$file);
+
+    //     Notification::make()
+    //         ->title('Data imported successfully')
+    //         ->success()
+    //         ->send();
+    // }
+
