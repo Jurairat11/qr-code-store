@@ -9,12 +9,13 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PartResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PartResource\RelationManagers;
-use Filament\Tables\Columns\TextColumn;
 
 class PartResource extends Resource
 {
@@ -45,7 +46,10 @@ class PartResource extends Resource
                 ->label('Part No.')
             ])
             ->filters([
-                //
+                SelectFilter::make('store_id')
+                ->relationship('store', 'store_name')
+                ->searchable()
+                ->preload()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

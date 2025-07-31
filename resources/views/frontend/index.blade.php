@@ -125,12 +125,12 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <div class="shadow-sm card">
+                    <div class="text-white card-header bg-primary d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">
                             <i class="bi bi-qr-code-scan me-2"></i>QR Code Generator
                         </h4>
-                        {{-- <span id="qrCount" class="badge bg-light text-dark px-3 py-2 rounded-pill">
+                        {{-- <span id="qrCount" class="px-3 py-2 badge bg-light text-dark rounded-pill">
                             Selected: 0
                         </span> --}}
                     </div>
@@ -159,11 +159,11 @@
 
                                     <div class="mb-3">
                                         <label class="form-label">Part No.</label>
-                                        <div class="d-flex justify-content-end mb-2">
+                                        <div class="mb-2 d-flex justify-content-end">
                                             <button type="button" id="selectAll"
                                                 class="btn btn-sm btn-secondary">Select All</button>
                                         </div>
-                                        <div id="partList" class="border rounded p-2"
+                                        <div id="partList" class="p-2 border rounded"
                                             style="max-height: 200px; overflow-y: auto;">
                                             <ul id="partNoList" class="list-group list-group-flush">
                                                 <li class="list-group-item text-muted">Select a store to see parts</li>
@@ -171,7 +171,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-grid mt-4">
+                                    <div class="mt-4 d-grid">
                                         <button type="submit" class="btn btn-primary btn-lg">
                                             <i class="bi bi-plus-circle-dotted me-2"></i>Generate & Add
                                         </button>
@@ -187,8 +187,8 @@
                                             <!-- Header -->
                                             <div class="d-flex align-items-center justify-content-between"
                                                 style="margin-bottom: 1rem;">
-                                                <img src="/assets/bvs-logo.png" alt="BVS Logo" style="height: 60px;" />
-                                                <h3 class="fw-bold mb-0">
+                                                {{-- <img src="/assets/bvs-logo.png" alt="BVS Logo" style="height: 60px;" /> --}}
+                                                <h3 class="mb-0 fw-bold">
                                                     QR Code <span id="storeTitle"></span>
                                                 </h3>
                                                 <div style="width: 60px;"></div> <!-- Spacer -->
@@ -200,7 +200,7 @@
                                     </div>
 
                                     <!-- ปุ่มดาวน์โหลด PDF -->
-                                    <div class="text-center mt-4">
+                                    <div class="mt-4 text-center">
                                         <button id="downloadPdf" class="btn btn-success">
                                             <i class="bi bi-file-earmark-pdf me-2"></i>Download as PDF
                                         </button>
@@ -373,7 +373,7 @@
             headerDiv.style.marginBottom = '1rem';
             headerDiv.innerHTML = `
                 <img src="/assets/BVS-logo.jpg" alt="BVS Logo" style="height: 60px;" />
-                <h3 class="fw-bold mb-0">QR Code <span>${storeName}</span></h3>
+                <h3 class="mb-0 fw-bold">QR Code <span>${storeName}</span></h3>
                 <div style="width: 60px;"></div>
             `;
 
