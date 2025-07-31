@@ -50,6 +50,7 @@ class PartResource extends Resource
                 ->relationship('store', 'store_name')
                 ->searchable()
                 ->preload()
+                ->indicator('Store')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

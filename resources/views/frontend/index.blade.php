@@ -187,7 +187,7 @@
                                             <!-- Header -->
                                             <div class="d-flex align-items-center justify-content-between"
                                                 style="margin-bottom: 1rem;">
-                                                {{-- <img src="/assets/bvs-logo.png" alt="BVS Logo" style="height: 60px;" /> --}}
+                                                <img src="/assets/bvs-logo.png" alt="BVS Logo" style="height: 60px;" />
                                                 <h3 class="mb-0 fw-bold">
                                                     QR Code <span id="storeTitle"></span>
                                                 </h3>
@@ -372,7 +372,7 @@
             headerDiv.className = 'd-flex align-items-center justify-content-between';
             headerDiv.style.marginBottom = '1rem';
             headerDiv.innerHTML = `
-                <img src="/assets/BVS-logo.jpg" alt="BVS Logo" style="height: 60px;" />
+                <img src="/assets/bvs-logo.png" alt="BVS Logo" style="height: 60px;" />
                 <h3 class="mb-0 fw-bold">QR Code <span>${storeName}</span></h3>
                 <div style="width: 60px;"></div>
             `;
