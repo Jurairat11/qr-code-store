@@ -12,6 +12,7 @@ use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Enums\Alignment;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ListParts extends ListRecords
@@ -40,7 +41,15 @@ class ListParts extends ListRecords
                                 ->label('Excel File')
                                 ->directory('imports')
                                 ->visibility('public')
-                                ->required(),
+                                ->required()
+                                ->live()
+                                ->afterStateUpdated(function (callable $set, TemporaryUploadedFile $state) {
+                                    dd($state->getRealPath());
+                                    // // $impExcel = new ForecastExcelSheets;
+                                    // Excel::import($impExcel, $state->getRealPath());
+                                    // $set('forecasts', $impExcel->data);
+                                    // return $impExcel;
+                                }),
                         ])
                 ])
                 ->action(function (array $data) {
