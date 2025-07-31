@@ -40,20 +40,21 @@ class ListParts extends ListRecords
                             FileUpload::make('file')
                                 ->label('Excel File')
                                 ->disk('upload_part')
+                                ->directory('imports')
                                 ->required()
                                 ->live()
-                                ->afterStateUpdated(function (callable $set, TemporaryUploadedFile $state) {
-                                    dd($state->getRealPath());
-                                    // // $impExcel = new ForecastExcelSheets;
-                                    // Excel::import($impExcel, $state->getRealPath());
-                                    // $set('forecasts', $impExcel->data);
-                                    // return $impExcel;
-                                }),
+                            // ->afterStateUpdated(function (callable $set, TemporaryUploadedFile $state) {
+                            //     dd($state->getRealPath());
+                            //     // // $impExcel = new ForecastExcelSheets;
+                            //     // Excel::import($impExcel, $state->getRealPath());
+                            //     // $set('forecasts', $impExcel->data);
+                            //     // return $impExcel;
+                            // }),
                         ])
                 ])
                 ->action(function (array $data) {
                     // $data = $this->form->getState();
-                    dd($data);
+                    // dd($data);
                     $storeId = $data['store_id'];
                     $filePath = storage_path('app/public/' . $data['file']); // แปลง path ให้ Laravel Excel ใช้ได้
 
