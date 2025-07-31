@@ -9,7 +9,4 @@
         </x-filament::button>
     </form>
 
-    <!-- ใส่สคริปต์และสไตล์ที่จำเป็น -->
-    <x-filament-panels::scripts />
-    <x-filament-panels::styles />
 </x-filament-panels::page>
