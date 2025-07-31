@@ -57,6 +57,8 @@ class UploadPartNo extends Page implements HasForms
         $storeId = $data['store_id'];
         $filePath = storage_path('app/' . $data['file']); // แปลง path ให้ Laravel Excel ใช้ได้
 
+        dd($filePath);
+
         Excel::import(new PartImport($storeId), $filePath);
 
         Notification::make()
