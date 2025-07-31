@@ -39,6 +39,7 @@ class ListParts extends ListRecords
 
                             FileUpload::make('file')
                                 ->label('Excel File')
+                                ->disk('public')
                                 ->directory('imports')
                                 ->visibility('public')
                                 ->required()
