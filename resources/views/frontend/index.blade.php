@@ -101,6 +101,11 @@
             font-weight: bold;
         }
 
+        .pac-qty {
+            font-size: 9pt;
+            font-weight: bold;
+        }
+
         #printArea .header {
             display: flex;
             align-items: center;
@@ -283,49 +288,50 @@
     }
 
     async function generateQrItems(partIds) {
-        const qrCodePromises = partIds.map(partId => {
-            return new Promise((resolve, reject) => {
-                const part = partsData.find(p => p.id == partId);
-                if (part) {
-                    const qrText = `${storeName}@${part.part_no}`;
-                    QRCode.toDataURL(qrText, {
-                        margin: 1.5
-                    }, function(err, url) {
-                        if (err) return reject(err);
+    const qrCodePromises = partIds.map(partId => {
+        return new Promise((resolve, reject) => {
+            const part = partsData.find(p => p.id == partId);
+            if (part) {
+                // เพิ่ม pac_qty เข้าไปในข้อความ QR
+                const qrText = `${storeName}@${part.part_no}@${part.pac_qty}`;
 
-                        const qrItem = document.createElement("div");
-                        qrItem.classList.add("qr-item");
+                QRCode.toDataURL(qrText, {
+                    margin: 1.5
+                }, function(err, url) {
+                    if (err) return reject(err);
 
-                        const qrBorder = document.createElement("div");
-                        qrBorder.classList.add("qr-border");
+                    const qrItem = document.createElement("div");
+                    qrItem.classList.add("qr-item");
 
-                        const qrImg = document.createElement("img");
-                        qrImg.src = url;
-                        qrImg.alt = `${part.part_no}`;
-                        qrBorder.appendChild(qrImg);
+                    const qrBorder = document.createElement("div");
+                    qrBorder.classList.add("qr-border");
 
-                        const storeText = document.createElement("p");
-                        storeText.classList.add("store-name");
-                        storeText.textContent = storeName;
+                    const qrImg = document.createElement("img");
+                    qrImg.src = url;
+                    qrImg.alt = qrText; // เพื่อให้ alt ตรงกับเนื้อหา
+                    qrBorder.appendChild(qrImg);
 
-                        const partText = document.createElement("p");
-                        partText.classList.add("part-no");
-                        partText.textContent = part.part_no;
+                    const storeText = document.createElement("p");
+                    storeText.classList.add("store-name");
+                    storeText.textContent = storeName;
 
-                        qrItem.appendChild(qrBorder);
-                        qrItem.appendChild(storeText);
-                        qrItem.appendChild(partText);
+                    const partAndQtyText = document.createElement("p");
+                    partAndQtyText.classList.add("part-no");
+                    partAndQtyText.innerHTML = `<strong>${part.part_no} (Packing: ${part.pac_qty ?? '-'}) </strong>`;
 
-                        resolve(qrItem);
-                    });
-                } else {
-                    resolve(null);
-                }
-            });
+                    qrItem.appendChild(qrBorder);
+                    qrItem.appendChild(storeText);
+                    qrItem.appendChild(partAndQtyText);
+
+                    resolve(qrItem);
+                });
+            } else {
+                resolve(null);
+            }
         });
-        return Promise.all(qrCodePromises);
-    }
-
+    });
+    return Promise.all(qrCodePromises);
+}
 
     document.getElementById("qrForm").addEventListener("submit", async function(e) {
         e.preventDefault();
@@ -366,7 +372,7 @@
             headerDiv.className = 'd-flex align-items-center justify-content-between';
             headerDiv.style.marginBottom = '1rem';
             headerDiv.innerHTML = `
-                <img src="/assets/bvs-logo.png" alt="BVS Logo" style="height: 60px;" />
+                <img src="/assets/BVS-logo.jpg" alt="BVS Logo" style="height: 60px;" />
                 <h3 class="fw-bold mb-0">QR Code <span>${storeName}</span></h3>
                 <div style="width: 60px;"></div>
             `;
