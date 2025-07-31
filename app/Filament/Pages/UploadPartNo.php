@@ -33,19 +33,19 @@ class UploadPartNo extends Page implements HasForms
     {
         return [
             Section::make()
-            ->schema([
+                ->schema([
 
-            Select::make('store_id')
-            ->label('Store')
-            ->options(Store::all()->pluck('store_name', 'id'))
-            ->required(),
+                    Select::make('store_id')
+                        ->label('Store')
+                        ->options(Store::all()->pluck('store_name', 'id'))
+                        ->required(),
 
-            FileUpload::make('file')
-                ->label('Excel File')
-                ->directory('imports')
-                ->visibility('public')
-                ->required(),
-            ])
+                    FileUpload::make('file')
+                        ->label('Excel File')
+                        ->directory('imports')
+                        ->visibility('public')
+                        ->required(),
+                ])
 
         ];
     }
@@ -56,8 +56,6 @@ class UploadPartNo extends Page implements HasForms
         $storeId = $data['store_id'];
         $filePath = storage_path('app/' . $data['file']); // แปลง path ให้ Laravel Excel ใช้ได้
 
-        dd($filePath);
-
         Excel::import(new PartImport($storeId), $filePath);
 
         Notification::make()
@@ -65,7 +63,6 @@ class UploadPartNo extends Page implements HasForms
             ->success()
             ->send();
     }
-
 }
 
 
@@ -84,4 +81,3 @@ class UploadPartNo extends Page implements HasForms
     //         ->success()
     //         ->send();
     // }
-
