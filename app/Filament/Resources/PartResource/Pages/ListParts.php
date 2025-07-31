@@ -39,8 +39,9 @@ class ListParts extends ListRecords
 
                             FileUpload::make('file')
                                 ->label('Excel File')
-                                ->disk('upload_part')
+                                // ->disk('upload_part')
                                 ->directory('imports')
+                                ->visibility('public')
                                 ->required()
                                 ->live()
                             // ->afterStateUpdated(function (callable $set, TemporaryUploadedFile $state) {
