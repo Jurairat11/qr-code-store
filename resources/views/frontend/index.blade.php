@@ -181,6 +181,12 @@
 
                             <!-- QR Code Section -->
                             <div class="col-lg-7">
+                                <!-- ปุ่มดาวน์โหลด PDF -->
+                                <div class="mt-4 text-center">
+                                    <button id="downloadPdf" class="btn btn-success">
+                                        <i class="bi bi-file-earmark-pdf me-2"></i>Download as PDF
+                                    </button>
+                                </div>
                                 <div class="border-start ps-lg-4">
                                     <div id="printArea" style="padding-top: 8mm;">
                                         <div style="width: 5.65in; margin: 0 auto;">
@@ -197,13 +203,6 @@
                                             <!-- พื้นที่ QR Code -->
                                             <div id="qrCodeContainer" class="mt-3"></div>
                                         </div>
-                                    </div>
-
-                                    <!-- ปุ่มดาวน์โหลด PDF -->
-                                    <div class="mt-4 text-center">
-                                        <button id="downloadPdf" class="btn btn-success">
-                                            <i class="bi bi-file-earmark-pdf me-2"></i>Download as PDF
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -288,50 +287,51 @@
     }
 
     async function generateQrItems(partIds) {
-    const qrCodePromises = partIds.map(partId => {
-        return new Promise((resolve, reject) => {
-            const part = partsData.find(p => p.id == partId);
-            if (part) {
-                // เพิ่ม pac_qty เข้าไปในข้อความ QR
-                const qrText = `${storeName}@${part.part_no}@${part.pac_qty}`;
+        const qrCodePromises = partIds.map(partId => {
+            return new Promise((resolve, reject) => {
+                const part = partsData.find(p => p.id == partId);
+                if (part) {
+                    // เพิ่ม pac_qty เข้าไปในข้อความ QR
+                    const qrText = `${storeName}@${part.part_no}@${part.pac_qty}`;
 
-                QRCode.toDataURL(qrText, {
-                    margin: 1.5
-                }, function(err, url) {
-                    if (err) return reject(err);
+                    QRCode.toDataURL(qrText, {
+                        margin: 1.5
+                    }, function(err, url) {
+                        if (err) return reject(err);
 
-                    const qrItem = document.createElement("div");
-                    qrItem.classList.add("qr-item");
+                        const qrItem = document.createElement("div");
+                        qrItem.classList.add("qr-item");
 
-                    const qrBorder = document.createElement("div");
-                    qrBorder.classList.add("qr-border");
+                        const qrBorder = document.createElement("div");
+                        qrBorder.classList.add("qr-border");
 
-                    const qrImg = document.createElement("img");
-                    qrImg.src = url;
-                    qrImg.alt = qrText; // เพื่อให้ alt ตรงกับเนื้อหา
-                    qrBorder.appendChild(qrImg);
+                        const qrImg = document.createElement("img");
+                        qrImg.src = url;
+                        qrImg.alt = qrText; // เพื่อให้ alt ตรงกับเนื้อหา
+                        qrBorder.appendChild(qrImg);
 
-                    const storeText = document.createElement("p");
-                    storeText.classList.add("store-name");
-                    storeText.textContent = storeName;
+                        const storeText = document.createElement("p");
+                        storeText.classList.add("store-name");
+                        storeText.textContent = storeName;
 
-                    const partAndQtyText = document.createElement("p");
-                    partAndQtyText.classList.add("part-no");
-                    partAndQtyText.innerHTML = `<strong>${part.part_no} (Packing: ${part.pac_qty ?? '-'}) </strong>`;
+                        const partAndQtyText = document.createElement("p");
+                        partAndQtyText.classList.add("part-no");
+                        partAndQtyText.innerHTML =
+                            `<strong>${part.part_no} (Packing: ${part.pac_qty ?? '-'}) </strong>`;
 
-                    qrItem.appendChild(qrBorder);
-                    qrItem.appendChild(storeText);
-                    qrItem.appendChild(partAndQtyText);
+                        qrItem.appendChild(qrBorder);
+                        qrItem.appendChild(storeText);
+                        qrItem.appendChild(partAndQtyText);
 
-                    resolve(qrItem);
-                });
-            } else {
-                resolve(null);
-            }
+                        resolve(qrItem);
+                    });
+                } else {
+                    resolve(null);
+                }
+            });
         });
-    });
-    return Promise.all(qrCodePromises);
-}
+        return Promise.all(qrCodePromises);
+    }
 
     document.getElementById("qrForm").addEventListener("submit", async function(e) {
         e.preventDefault();
