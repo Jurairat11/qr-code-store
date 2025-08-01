@@ -21,8 +21,8 @@ class PartImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $exists = Part::where('store_id', $this->storeId)
-            ->where('part_no', $row['part_no'])
-            ->where('pac_qty',$row['pac_qty'])
+            ->whereRaw('LOWER(part_no) = ?', [strtolower($row['part_no'])])
+            // ->where('pac_qty',$row['pac_qty'])
             ->exists();
 
         if ($exists) {
@@ -39,7 +39,7 @@ class PartImport implements ToModel, WithHeadingRow
         return new Part([
             'store_id' => $this->storeId,
             'part_no' => $row['part_no'],
-            'pac_qty' => $row['pac_qty']
+            // 'pac_qty' => $row['pac_qty']
         ]);
     }
 
