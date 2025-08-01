@@ -167,5 +167,5 @@ return [
     | ถ้าไม่ตั้งค่า จะ fallback ไปที่ config('app.url')
     */
 
-    'asset_url' => env('APP_URL', null),
+    // 'asset_url' => env('APP_URL', null),
 ];
