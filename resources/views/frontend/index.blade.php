@@ -292,7 +292,8 @@
                 const part = partsData.find(p => p.id == partId);
                 if (part) {
                     // เพิ่ม pac_qty เข้าไปในข้อความ QR
-                    const qrText = `${storeName}@${part.part_no}@${part.pac_qty}`;
+                    const qrText = `${storeName}@${part.part_no}`;
+                    //const qrText = `${storeName}@${part.part_no}@${part.pac_qty}`;
 
                     QRCode.toDataURL(qrText, {
                         margin: 1.5
@@ -314,15 +315,13 @@
                         storeText.classList.add("store-name");
                         storeText.textContent = storeName;
 
-                        const partAndQtyText = document.createElement("p");
-                        partAndQtyText.classList.add("part-no");
-                        partAndQtyText.innerHTML =
-                            `<strong>${part.part_no} (Packing: ${part.pac_qty ?? '-'}) </strong>`;
+                        const partText = document.createElement("p");
+                        partText.classList.add("part-no");
+                        partText.textContent = part.part_no;
 
                         qrItem.appendChild(qrBorder);
                         qrItem.appendChild(storeText);
-                        qrItem.appendChild(partAndQtyText);
-
+                        qrItem.appendChild(partText);
                         resolve(qrItem);
                     });
                 } else {
