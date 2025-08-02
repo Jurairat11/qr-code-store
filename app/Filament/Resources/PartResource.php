@@ -34,9 +34,9 @@ class PartResource extends Resource
                 ->label('Part No.')
                 ->required(),
 
-                TextInput::make('pac_qty')
-                ->label('Packing Qty')
-                ->required()
+                // TextInput::make('pac_qty')
+                // ->label('Packing Qty')
+                // ->required()
             ]);
     }
 
@@ -48,8 +48,8 @@ class PartResource extends Resource
                 ->label('Store'),
                 TextColumn::make('part_no')
                 ->label('Part No.'),
-                TextColumn::make('pac_qty')
-                ->label('Packing Qty')
+                // TextColumn::make('pac_qty')
+                // ->label('Packing Qty')
             ])
             ->filters([
                 SelectFilter::make('store_id')
