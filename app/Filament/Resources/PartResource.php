@@ -47,12 +47,14 @@ class PartResource extends Resource
                 TextColumn::make('store.store_name')
                 ->label('Store'),
                 TextColumn::make('part_no')
-                ->label('Part No.'),
+                ->label('Part No.')
+                ->searchable(),
                 // TextColumn::make('pac_qty')
                 // ->label('Packing Qty')
             ])
             ->filters([
                 SelectFilter::make('store_id')
+                ->label('Store')
                 ->relationship('store', 'store_name')
                 ->searchable()
                 ->preload()
